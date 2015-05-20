@@ -115,7 +115,20 @@ RAC(self.stateLable,text) = [RACSignal merge:@[startSignal, successSignal, failS
 	RAC(self.signInButton,enabled) = [RACSignal combineLatest:@[validUsernameSignal,validPasswordSignal]
 													  reduce:^id(NSNumber *usernameValid, NSNumber *passwordValid){
 													  return @([usernameValid boolValue] && [passwordValid boolValue]);
-													  }];
+													  }];	
+	
+	@weakify(self)
+    RACSignal *cheackUserSignal = [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+       @strongify(self)
+       //do request for cheack user
+		return nil;
+	}];
+	 RACSignal *signSignal = [self.signInButton.rac_actionSignal mapReplace:nil];
+	 RACSignal *finalLoginSignal = [RACSignal merge:@[cheackUserSignal,signSignal]];
+	 [finalLoginSignal subscribeCompleted:^{
+		 NSLog(@"do both something");
+	 }];
+	
 ####RACScheduler Request
 	__block NSInteger number = numberLimit;
 	@weakify(self);
@@ -207,4 +220,17 @@ RAC(self.stateLable,text) = [RACSignal merge:@[startSignal, successSignal, failS
 	}
 }];
 ```
+####UIBarButtonItem+Category
+    UIBarButtonItem *doneItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"done", nil) style:UIBarButtonItemStylePlain target:nil action:NULL];
+    [[doneItem.rac_actionSignal
+		flattenMap:^(UIBarButtonItem *item) {
+			//do something
+		}]
+		subscribeNext:^(id _) {
+			//do something
+		}];
+
+
+---
 ######<a name="fenced-code-block">未完待续。。。</a>
+
