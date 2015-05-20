@@ -39,23 +39,7 @@
     reduce:^(NSString *password, NSString *passwordConfirm) {
         return @([passwordConfirm isEqualToString:password]);
     }];
-####Event
-######按钮按下检测并通过Signal信号传递事件并且执行
-	[[[self.signInButton rac_signalForControlEvents:UIControlEventTouchUpInside]map:^id(id value) {
-		return self.signInButton;
-	}]subscribeNext:^(id x) {
-		NSLog(@"Sign in result: %@", x);
-	}];
-```
-[[[self.signInButton rac_signalForControlEvents:UIControlEventTouchUpInside] flattenMap:^RACStream *(id value) {
-	return [self signInSignal];
-}] subscribeNext:^(NSNumber *signedIn) {
-	BOOL success = [signedIn boolValue];
-	if (success) {
-		[self performSegueWithIdentifier:@"signInSuccess" sender:self];
-	}
-}];
-```
+    
 ######ReactiveCocoa每个UIButton下都有一个rac_command属性，按下按钮都会实现一个事件
 ```
 RACCommand *loginCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
@@ -206,3 +190,19 @@ RAC(self.stateLable,text) = [RACSignal merge:@[startSignal, successSignal, failS
     [[refreshControl rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(id x) {
         NSLog("%@",x);
     }];
+####UIButton+Category
+	[[[self.signInButton rac_signalForControlEvents:UIControlEventTouchUpInside]map:^id(id value) {
+		return self.signInButton;
+	}]subscribeNext:^(id x) {
+		NSLog(@"Sign in result: %@", x);
+	}];
+```
+[[[self.signInButton rac_signalForControlEvents:UIControlEventTouchUpInside] flattenMap:^RACStream *(id value) {
+	return [self signInSignal];
+}] subscribeNext:^(NSNumber *signedIn) {
+	BOOL success = [signedIn boolValue];
+	if (success) {
+		[self performSegueWithIdentifier:@"signInSuccess" sender:self];
+	}
+}];
+```
