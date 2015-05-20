@@ -3,6 +3,7 @@
 > 
 > * [nshipster](http://nshipster.com/reactivecocoa/)
 > * [reactivecocoa-for-a-better-world](https://github.com/blog/1107-reactivecocoa-for-a-better-world)
+> * [RAC的作者之一 jspahrsummers 的一个项目:GroceryList](https://github.com/jspahrsummers/GroceryList/blob/master/GroceryList%2FGCYGroceryList.m)
 > * [MVVM模式](http://objccn.io/issue-13-1/)
 > * [ReactiveViewModel](https://github.com/ReactiveCocoa/ReactiveViewModel) 
 > * [MVVM-IOS-Example](https://github.com/Machx/MVVM-IOS-Example)
@@ -206,3 +207,6 @@ RAC(self.stateLable,text) = [RACSignal merge:@[startSignal, successSignal, failS
 	}
 }];
 ```
+
+---
+####<a name="fenced-code-block">未完待续。。。</a>
