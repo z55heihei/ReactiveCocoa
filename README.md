@@ -193,7 +193,7 @@ RAC(self.stateLable,text) = [RACSignal merge:@[startSignal, successSignal, failS
 		NSLog(@"%@",x);
 	}];
 	[actionSheet showInView:self.view];
-####UIGestureRecognizer+Category[UIGestureRecognizer-RACExtension](https://github.com/kaiinui/UIGestureRecognizer-RACExtension)
+####UIGestureRecognizer+Category([UIGestureRecognizer-RACExtension](https://github.com/kaiinui/UIGestureRecognizer-RACExtension))
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
 	[self.view addGestureRecognizer:tapGesture];
 	[[tapGesture rac_gestureSignal] subscribeNext:^(id x) {
