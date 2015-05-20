@@ -12,6 +12,19 @@
 > * [南峰子博客：Category: reactivecocoa](http://southpeak.github.io/blog/categories/reactivecocoa/)
 > * [sunnyxx博客](http://blog.sunnyxx.com/tags/Reactive%20Cocoa%20Tutorial/)
 > * [唐巧博客：ReactiveCocoa - iOS开发的新框架](http://blog.devtang.com/blog/2014/02/11/reactivecocoa-introduction/)
+> * [objcn：KVC和KVO](http://objccn.io/issue-7-3/) [消息传递机制](http://objccn.io/issue-7-4/)
+
+####与RAC一起开发使用框架
+
+便利开发资源开发框架，不一定都要用，但能解决项目代码管理和功能上的MVC依赖性，便利敏捷开发
+>1. [CocoaPods](http://blog.devtang.com/blog/2014/05/25/use-cocoapod-to-manage-ios-lib-dependency/)
+依赖管理标准工具
+>2. [ReactiveViewModel](https://github.com/ReactiveCocoa/ReactiveViewModel) RAC封装MVVM模式
+>3. [JSONModel-RACExtensions](https://github.com/Legoless/JSONModel-RACExtensions) JSONModel是解析返回的JSON数据的库
+>4. [Masonry](http://adad184.com/2014/09/28/use-masonry-to-quick-solve-autolayout/)
+RAC可控制UI(xib/StoryBoard)有提供UI Extension，纯代码布局使用Masonry框架值得拥有。
+>5. [Mantle](http://www.iwangke.me/2014/10/13/Why-Changba-iOS-choose-Mantle/) 构建model,减少大量模版代码,修改映射字段方便，扩展性强。
+>6. [libextobjc](https://github.com/jspahrsummers/libextobjc) 非常强大的Objective-C库的扩展
 
 ####RACObserve
 ######KVO监测属性
@@ -233,4 +246,4 @@ RAC(self.stateLable,text) = [RACSignal merge:@[startSignal, successSignal, failS
 
 ---
 ######<a name="fenced-code-block">未完待续。。。</a>
----
+
