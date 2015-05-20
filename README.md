@@ -47,14 +47,14 @@
 		NSLog(@"Sign in result: %@", x);
 	}];
 ```
-	[[[self.signInButton rac_signalForControlEvents:UIControlEventTouchUpInside] flattenMap:^RACStream *(id value) {
-		return [self signInSignal];
-	}] subscribeNext:^(NSNumber *signedIn) {
-		BOOL success = [signedIn boolValue];
-		if (success) {
-			[self performSegueWithIdentifier:@"signInSuccess" sender:self];
-		}
-	}];
+[[[self.signInButton rac_signalForControlEvents:UIControlEventTouchUpInside] flattenMap:^RACStream *(id value) {
+	return [self signInSignal];
+}] subscribeNext:^(NSNumber *signedIn) {
+	BOOL success = [signedIn boolValue];
+	if (success) {
+		[self performSegueWithIdentifier:@"signInSuccess" sender:self];
+	}
+}];
 ```
 ######ReactiveCocoa每个UIButton下都有一个rac_command属性，按下按钮都会实现一个事件
 ```
