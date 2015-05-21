@@ -14,7 +14,7 @@
 > * [唐巧博客：ReactiveCocoa - iOS开发的新框架](http://blog.devtang.com/blog/2014/02/11/reactivecocoa-introduction/)
 > * [objcn：KVC和KVO](http://objccn.io/issue-7-3/) [消息传递机制](http://objccn.io/issue-7-4/)
 
-####与RAC一起开发使用框架
+####与RAC一起使用的框架
 
 便利开发资源开发框架，不一定都要用，但能解决项目代码管理和功能上的MVC依赖性，便利敏捷开发
 >1. [CocoaPods](http://blog.devtang.com/blog/2014/05/25/use-cocoapod-to-manage-ios-lib-dependency/)
@@ -70,6 +70,7 @@ RACCommand *loginCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(
 }];
 self.signInButton.rac_command = loginCommand;
 ```
+######rac_command.executionSignals是RACCommand的异常信号，rac_command.errors错误集合
 ```
 self.signInButton.rac_command = [[RACCommand alloc] initWithEnabled:validUsernameSignal 
 signalBlock:^RACSignal *(id input) {
@@ -79,17 +80,27 @@ signalBlock:^RACSignal *(id input) {
         }];
  }];
     
-RACSignal *startSignal = [self.button.rac_command.executionSignals map:^id(id value) {
+RACSignal *startSignal = [self.signInButton.rac_command.executionSignals map:^id(id value) {
         return @"Sending Request...";
 }];
     
-RACSignal *successSignal = [self.button.rac_command.executionSignals switchToLatest];
+RACSignal *successSignal = [self.signInButton.rac_command.executionSignals switchToLatest];
     
-RACSignal *failSignal = [self.button.rac_command.errors map:^id(id value) {
-        return @"Request Error";
+RACSignal *failSignal = [self.signInButton.rac_command.errors map:^id(id value) {
+     return @"Request Error";
 }];
     
 RAC(self.stateLable,text) = [RACSignal merge:@[startSignal, successSignal, failSignal]];
+
+//OR
+[self.signInButton.rac_command.executionSignals subscribeNext:^(RACSignal *execution) {
+   [[[execution dematerialize] deliverOn:[RACScheduler mainThreadScheduler]] subscribeError:^(NSError *error) {
+        NSLog(@"%@", error);
+   } completed:^{
+        NSLog(@"completed");
+   }];
+}];
+
 ```
 
 ####RACSignal
